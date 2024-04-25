@@ -11,15 +11,17 @@ import (
 )
 
 var (
-	host       string
+	localHost       string
 	localPort  int
+	remoteHost       string
 	remotePort int
 )
 
 func init() {
-	flag.StringVar(&host, "h", "127.0.0.1", "remote server ip")
-	flag.IntVar(&localPort, "l", 8080, "the local port")
-	flag.IntVar(&remotePort, "r", 3333, "remote server port")
+	flag.StringVar(&localHost, "lh", "127.0.0.1", "local server ip")
+	flag.IntVar(&localPort, "lp", 8080, "the local port")
+	flag.StringVar(&remoteHost, "rh", "127.0.0.1", "remote server ip")
+	flag.IntVar(&remotePort, "rp", 3333, "remote server port")
 }
 
 type server struct {
@@ -128,7 +130,7 @@ func (l *local) Write(ctx context.Context) {
 func main() {
 	flag.Parse()
 
-	target := net.JoinHostPort(host, fmt.Sprintf("%d", remotePort))
+	target := net.JoinHostPort(remoteHost, fmt.Sprintf("%d", remotePort))
 	for {
 		serverConn, err := net.Dial("tcp", target)
 		if err != nil {
@@ -158,7 +160,7 @@ func handle(server *server) {
 	go server.Read(ctx)
 	go server.Write(ctx)
 
-	localConn, err := net.Dial("tcp", fmt.Sprintf("127.0.0.1:%d", localPort))
+	localConn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", localHost, localPort))
 	if err != nil {
 		panic(err)
 	}
