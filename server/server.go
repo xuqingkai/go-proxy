@@ -16,8 +16,8 @@ var (
 )
 
 func init() {
-	flag.IntVar(&localPort, "l", 5200, "the user link port")
-	flag.IntVar(&remotePort, "r", 3333, "client listen port")
+	flag.IntVar(&localPort, "lp", 5200, "the user link port")
+	flag.IntVar(&remotePort, "rp", 3333, "client listen port")
 }
 
 type client struct {
