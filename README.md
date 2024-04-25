@@ -12,12 +12,12 @@
 
 server端, 默认本地为5200端口
 ```bash
-./server -l 5200 -r 3333
+./server -lp 5200 -rp 3333
 ```
 
 client端
 ```bash
-./client -l 8080 -r 3333 -h 公网IP地址
+./client -lh 内网IP地址 -lp 8080 -rh 公网IP地址 -rp 3333
 ```
 
 用户访问 `公网IP地址:5200` 即可访问到 内网中的 `8080`端口程序
